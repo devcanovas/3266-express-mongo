@@ -2,9 +2,15 @@ import http from "http";
 
 const PORT = 3000;
 
+const routes = {
+  "/": "Express API course",
+  "/books": "Accessing the Books route",
+  "/authors": "Accessing the Authors route",
+};
+
 const server = http.createServer((req, res) => {
   res.writeHead(200, { "Content-Type": "text/plain" });
-  res.end("Node.js course");
+  res.end(routes[req.url]);
 });
 
 server.listen(PORT, () => {
