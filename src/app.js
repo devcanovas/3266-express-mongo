@@ -27,10 +27,18 @@ app.post("/books", (req, res) => {
 });
 
 app.get("/books/:id", (req, res) => {
-  let bookFounded = books.filter((book) => book.id === Number(req.params.id));
-  bookFounded.length === 0
-    ? res.status(200).json("Not Found")
-    : res.status(200).json(bookFounded);
+  let bookFounded = filterBooks(req.params.id)
+  res.status(200).json(bookFounded);
 });
+
+app.put("/books/:id", (req, res) => {
+  const index = books.findIndex((book) => book.id === Number(req.params.id));
+  books[index].title = req.body.title;
+  res.status(200).json(books);
+})
+
+function filterBooks(id) {
+  return books.filter((book) => book.id === Number(id));
+}
 
 export default app;
